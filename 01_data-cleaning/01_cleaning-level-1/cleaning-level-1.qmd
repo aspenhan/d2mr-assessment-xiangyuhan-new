@@ -117,7 +117,7 @@ The original and the goal dataset also differs in that the latter has the car mo
 
 2. What are the main issues you need to address in cleaning?
 
-To clarify, I will be cleaning the messy dataset to obtain the goal dataset (not the original) as per instructions.
+To clarify, I will be cleaning the messy dataset to obtain the goal datset (not the original) as per instructions.
 
 I will retain the car model variable column, but remove the "wt + runif(n(), 2e-05, 2e-04)" and "hp_per_cyl" variable columns.
 
@@ -256,11 +256,11 @@ Identifying specific value problems and cleaning them might take a little creati
 
 # Remove unwanted whitespace in any columns required
 
-# First changed the row names to a column variable
+# Also changed the row names to a column variable
 
 clean.mtcars <- clean.mtcars %>%
   rownames_to_column(var = "model") %>%
-  mutate(across(where(is.character), str_squish))
+  mutate(across(where(is.character), str_trim))
 
 ```
 
@@ -270,9 +270,11 @@ clean.mtcars <- clean.mtcars %>%
 
 # Impute missing values for cyl and hp
 
-clean.mtcars <- clean.mtcars %>%
-  mutate(cyl = replace(cyl, is.na(cyl), c(8, 6)),
-    hp = replace(hp, is.na(hp), c(95, 66, 91)))
+clean.mtcars$cyl[15] <- 8
+clean.mtcars$cyl[30] <- 6
+clean.mtcars$hp[9] <- 95
+clean.mtcars$hp[18] <- 66
+clean.mtcars$hp[27] <- 91
 
 which(is.na(clean.mtcars)) #to check if there are still any NA values
 
@@ -297,16 +299,15 @@ clean.mtcars$qsec <- round(clean.mtcars$qsec, 2)
 # Fix typos in model names
 ## Hint: This can be completed with a 6-line mutate() statement
 
-#see unique data entries under "model" to compare name differences
+#see unique data entries under "model"
 unique(clean.mtcars$model)
 unique(goal.mtcars$model)
 
-#Fix typos
 clean.mtcars <- clean.mtcars %>%
-  mutate(model = str_replace_all(model, "A", "a"),
-         model = str_replace_all(model, "aMC Javelin", "AMC Javelin"),
-         model = str_replace_all(model, "T0yota Corona", "Toyota Corona"),
-         model = str_replace_all(model, "L0tus Europa", "Lotus Europa"))
+  mutate(model = str_replace_all(model, "A", "a")) %>%
+  mutate(model = str_replace_all(model, "aMC Javelin", "AMC Javelin")) %>%
+  mutate(model = str_replace_all(model, "T0yota Corona", "Toyota Corona")) %>%
+  mutate(model = str_replace_all(model, "L0tus Europa", "Lotus Europa"))
 
 ```
 
@@ -316,7 +317,7 @@ clean.mtcars <- clean.mtcars %>%
 
 # Remove the extra column
 
-# I don't have an extra column.
+# There is no extra column?
 
 ```
 
