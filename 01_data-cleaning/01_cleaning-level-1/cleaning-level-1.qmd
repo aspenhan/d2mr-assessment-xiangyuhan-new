@@ -308,7 +308,10 @@ clean.mtcars <- clean.mtcars %>%
   mutate(model = str_replace_all(model, "aMC Javelin", "AMC Javelin")) %>%
   mutate(model = str_replace_all(model, "T0yota Corona", "Toyota Corona")) %>%
   mutate(model = str_replace_all(model, "L0tus Europa", "Lotus Europa"))
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0e92477 (complete essential cleaning tasks)
 ```
 
 ```{r}
@@ -318,7 +321,10 @@ clean.mtcars <- clean.mtcars %>%
 # Remove the extra column
 
 # There is no extra column?
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0e92477 (complete essential cleaning tasks)
 ```
 
 
