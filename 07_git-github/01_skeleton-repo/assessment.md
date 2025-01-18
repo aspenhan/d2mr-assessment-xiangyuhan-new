@@ -11,15 +11,15 @@
 
 ## Basic information
 
-Name:
+Name: Aspen Han
 
-CNetID:
+CNetID: xiangyuhan
 
-Section:
+Section: 1
 
-Mini-project title:
+Mini-project title: git-github | Skeleton repo
 
-Submission date:
+Submission date: 
 
 Project GitHub subdirectory URL:
 
@@ -52,8 +52,8 @@ Below each learning objective is a list of general expectations for meeting that
     2.  Uses relative paths correctly
     3.  Does not have duplicate/redundant elements
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments: 
 
@@ -62,18 +62,18 @@ Below each learning objective is a list of general expectations for meeting that
     1.  Includes description of repo purpose, data use, research questions, etc.
     2.  Outlines the repo structure with file tree or similar
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
 3.  Integrate a GitHub repo with an R studio project, including .gitignore file
 
     1.  All scripts run and all notebooks render if the repo is cloned to another location
-    2.  .gitignore comprehensively excludes unnecessary, private, and very large files and is be commeted appropriately
+    2.  .gitingore comprehensively excludes unnecessary, private, and very large files and is commented appropriately
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -82,8 +82,8 @@ Below each learning objective is a list of general expectations for meeting that
     1.  Used frequent, informative commit messages
     2.  Relies on document revisions rather than manually created new versions
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
