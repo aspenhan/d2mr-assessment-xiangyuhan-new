@@ -180,6 +180,8 @@ clean.mtcars <- clean.mtcars %>%
 
 # Correct variable data types
 
+?mutate
+
 head(clean.mtcars)
 head(mtcars)
 
@@ -306,7 +308,6 @@ clean.mtcars <- clean.mtcars %>%
          model = str_replace_all(model, "T0yota Corona", "Toyota Corona"),
          model = str_replace_all(model, "L0tus Europa", "Lotus Europa"))
 
-#Not exactly 6 lines; not sure whether there is a more efficient way to do this
 ```
 
 ```{r}
@@ -316,6 +317,7 @@ clean.mtcars <- clean.mtcars %>%
 # Remove the extra column
 
 # I don't have an extra column.
+
 ```
 
 
