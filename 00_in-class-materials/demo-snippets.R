@@ -675,15 +675,11 @@ my_ordered_factor # the levels are represented least to greatest
 
 # or to change the levels of a factor
 # replacing all instances of "a" with "z", "b" with "y", and "c" with "x"
-my_factor2 <- my_factor
+my_factor2 <- my_factor 
 levels(my_factor2) <- c("z", "y", "x") # order matters, should match existing level order 
 # alternatively, specify which new levels correspond to the old levels
 my_factor3 <- my_factor
-levels(my_factor3) <- c("z" = "a", "y" = "b", "x" = "c") # order doesn't matter
-
-my_factor2
-my_factor3
-
+levels(my_factor3) <- c("a" = "z", "b" = "y", "c" = "x") # order doesn't matter
 
 # fct_count() counts the number of occurrences of each level
 fct_count(my_factor)
