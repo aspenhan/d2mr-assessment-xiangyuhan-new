@@ -117,7 +117,7 @@ The original and the goal dataset also differs in that the latter has the car mo
 
 2. What are the main issues you need to address in cleaning?
 
-To clarify, I will be cleaning the messy dataset to obtain the goal datset (not the original) as per instructions.
+To clarify, I will be cleaning the messy dataset to obtain the goal dataset (not the original) as per instructions.
 
 I will retain the car model variable column, but remove the "wt + runif(n(), 2e-05, 2e-04)" and "hp_per_cyl" variable columns.
 
@@ -179,8 +179,6 @@ clean.mtcars <- clean.mtcars %>%
 #| label: correct-data-types
 
 # Correct variable data types
-
-?mutate
 
 head(clean.mtcars)
 head(mtcars)
@@ -256,11 +254,11 @@ Identifying specific value problems and cleaning them might take a little creati
 
 # Remove unwanted whitespace in any columns required
 
-# Also changed the row names to a column variable
+# First changed the row names to a column variable
 
 clean.mtcars <- clean.mtcars %>%
   rownames_to_column(var = "model") %>%
-  mutate(across(where(is.character), str_trim))
+  mutate(across(where(is.character), str_squish))
 
 ```
 
@@ -270,11 +268,9 @@ clean.mtcars <- clean.mtcars %>%
 
 # Impute missing values for cyl and hp
 
-clean.mtcars$cyl[15] <- 8
-clean.mtcars$cyl[30] <- 6
-clean.mtcars$hp[9] <- 95
-clean.mtcars$hp[18] <- 66
-clean.mtcars$hp[27] <- 91
+clean.mtcars <- clean.mtcars %>%
+  mutate(cyl = replace(cyl, is.na(cyl), c(8, 6)),
+    hp = replace(hp, is.na(hp), c(95, 66, 91)))
 
 which(is.na(clean.mtcars)) #to check if there are still any NA values
 
@@ -299,15 +295,18 @@ clean.mtcars$qsec <- round(clean.mtcars$qsec, 2)
 # Fix typos in model names
 ## Hint: This can be completed with a 6-line mutate() statement
 
-#see unique data entries under "model"
+#see unique data entries under "model" to compare name differences
 unique(clean.mtcars$model)
 unique(goal.mtcars$model)
 
+#Fix typos
 clean.mtcars <- clean.mtcars %>%
-  mutate(model = str_replace_all(model, "A", "a")) %>%
-  mutate(model = str_replace_all(model, "aMC Javelin", "AMC Javelin")) %>%
-  mutate(model = str_replace_all(model, "T0yota Corona", "Toyota Corona")) %>%
-  mutate(model = str_replace_all(model, "L0tus Europa", "Lotus Europa"))
+  mutate(model = str_replace_all(model, "A", "a"),
+         model = str_replace_all(model, "aMC Javelin", "AMC Javelin"),
+         model = str_replace_all(model, "T0yota Corona", "Toyota Corona"),
+         model = str_replace_all(model, "L0tus Europa", "Lotus Europa"))
+
+#Not exactly 6 lines; not sure whether there is a more efficient way to do this
 ```
 
 ```{r}
@@ -316,7 +315,7 @@ clean.mtcars <- clean.mtcars %>%
 
 # Remove the extra column
 
-# There is no extra column?
+# I don't have an extra column.
 ```
 
 
@@ -364,10 +363,157 @@ You can call it a day here, or continue with the optional cleaning tasks below. 
 6. Sort the dataset by `mpg_category` then reverse alphabetically by `model` (so that models with the same `mpg_category` are sorted Z to A).
 7. Write the cleaned dataset as a csv file called `clean-mtcars.csv`, then read the csv back in maintaining the correct data types.
 
+```{r}
+#| label: Categorise mpg and sort based on it
+
+#Set mpg below 15 as "low", 15 to below 30 as medium, and 30 or above as high
+
+clean.mtcars <- clean.mtcars %>%
+  mutate(mpg_category = case_when(
+    mpg < 15 ~ "low",
+    mpg >= 15 & mpg < 30 ~ "medium",
+    mpg >= 30 ~ "high"
+  ))
+
+#Set mpg_category to a factor variable and set level ascending from low to high
+
+str(clean.mtcars) #to check variable types
+
+clean.mtcars$mpg_category <- factor(clean.mtcars$mpg_category) %>%
+  fct_relevel("low", "medium", "high")
+
+#Sort data by mpg_category and then by model reverse alphabetically
+
+clean.mtcars <- clean.mtcars %>%
+  arrange(mpg_category, desc(model))
+
+```
+
+```{r}
+#| label: Categorise by weight
+
+#Set weight below 2 as light, 2 to below 4 as medium, and 4 and above as heavy
+
+clean.mtcars <- clean.mtcars %>%
+  mutate(wt_category = case_when(
+    wt < 2 ~ "light",
+    wt >= 2 & wt < 4 ~ "medium",
+    wt >= 4 ~ "heavy")) 
+
+#Set wt_category as factor and set level "ascending" from heavy to light
+clean.mtcars$wt_category <- factor(clean.mtcars$wt_category) %>%
+  fct_relevel("heavy", "medium", "light")
+
+#Sort data by wt_category
+
+clean.mtcars <- clean.mtcars %>%
+  arrange(wt_category) #note that it sorts with heavy then medium then light due to order reveral
+```
+
+```{r}
+#| label: Compute mpg per cyl
+
+clean.mtcars$mpg_per_cyl <- clean.mtcars$mpg/clean.mtcars$cyl
+
+#Round the values to 2 dp
+
+clean.mtcars$mpg_per_cyl <- round(clean.mtcars$mpg_per_cyl, 2)
+```
+
+```{r}
+#| label: Filter by transmission type
+
+#Check information about the mtcars dataset
+
+?mtcars
+
+#"am" variable stands for transmission type, with 0 denoting automatic and 1 denoting manual
+
+#Data containing only automatic transmissions
+
+clean.mtcars.auto <- clean.mtcars %>%
+  filter(am == 0)
+
+#Data containing only manual transmissions
+
+clean.mtcars.manual <- clean.mtcars %>%
+  filter(am ==! 0)
+```
+
+
+```{r}
+#| label: Convert appropriate variables to logical type
+
+?mtcars
+str(clean.mtcars)
+
+# Based on the dataframe description and existing variable values, vs which is engine shape and am which is transmission type are apt as logical variables, so false denotes V-shaped, and automatic for transmission
+
+clean.mtcars <- clean.mtcars %>%
+  mutate(vs = as.logical(vs), am = as.logical(am)) %>%
+  rename(engine_straight = vs, transmission_manual = am)
+
+```
+
+```{r}
+#| label: Export cleaned dataset
+
+# Arrange based on weight category and then mpg category
+
+clean.mtcars <- clean.mtcars %>%
+  arrange(desc(wt_category), mpg_category)
+
+# Export data
+
+write.csv(clean.mtcars, "01_data-cleaning/01_cleaning-level-1/clean-mtcars.csv")
+```
+
 
 ## Unguided cleaning and transformation
 
 *Optional:* If you have the time and interest, continue transforming this dataset as you please. Create new columns based on the existing ones, reformat strings, try your hand at a regex replacement, summarize by groups (factor levels), visualize a simple relationship, or anything else you can think of. You can do this in addition to or instead of the suggested additional cleaning tasks above.
+
+```{r}
+#| label: Convert miles to kilometres
+
+# Define function which can convert imperial to metric units; put distance as the first argument and weight as the second argument
+
+imp_to_metric <- function(x, y) {
+  if (missing(y)) {
+    return(x * 1.60934)  # Convert miles to km
+  } 
+  if (missing(x)) {
+    return(y * 0.453592) # Convert pounds to kg
+  } 
+  return(c(x * 1.60934, y * 0.453592))  # Convert both if neither is missing
+}
+
+# Convert dataset variables to metric units
+
+clean.mtcars.metric <- clean.mtcars %>%
+  mutate(mpg = imp_to_metric(mpg),
+         mpg_per_cyl = imp_to_metric(mpg_per_cyl),
+         wt = imp_to_metric(, wt)) %>%
+  rename(kmpg = mpg, kmpg_per_cyl = mpg_per_cyl)
+
+# Now we get standard metric units yay
+```
+
+```{r}
+#| label: Scatterplot of horsepower
+
+
+```
+
+```{r}
+#| label: Test for difference in mpg between transmission types
+
+#Test for whether mpg differs for two types of transmissions
+
+mean(clean.mtcars.auto$am)
+
+
+```
 
 
 # Submission & Assessment
