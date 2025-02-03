@@ -52,7 +52,7 @@ Below each learning objective is a list of general expectations for meeting that
     2.  Uses relative paths correctly
     3.  Does not have duplicate/redundant elements
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments: 
@@ -62,7 +62,7 @@ Below each learning objective is a list of general expectations for meeting that
     1.  Includes description of repo purpose, data use, research questions, etc.
     2.  Outlines the repo structure with file tree or similar
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -72,7 +72,7 @@ Below each learning objective is a list of general expectations for meeting that
     1.  All scripts run and all notebooks render if the repo is cloned to another location
     2.  .gitingore comprehensively excludes unnecessary, private, and very large files and is commented appropriately
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -82,7 +82,7 @@ Below each learning objective is a list of general expectations for meeting that
     1.  Used frequent, informative commit messages
     2.  Relies on document revisions rather than manually created new versions
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -95,7 +95,7 @@ Below each learning objective is a list of general expectations for meeting that
     2. Uses more than one function to install/load/require packages
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -261,7 +261,7 @@ Below each learning objective is a list of general expectations for meeting that
     3. May use `cite_r()` to cite R and R packages
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -274,7 +274,7 @@ Below each learning objective is a list of general expectations for meeting that
     5. May include references not cited in-text
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -288,7 +288,7 @@ Below each learning objective is a list of general expectations for meeting that
     4.  Chunks are distributed throughout the manuscript, sensibly placed near the text they support
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments: 
         
@@ -300,7 +300,7 @@ Below each learning objective is a list of general expectations for meeting that
     4. Organizes setup chunks sensibly
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -337,7 +337,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Includes all necessary metadata, output options, and formatting options necessary to render an APA styled document (or other specified style if appropriate for the project)
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -349,7 +349,7 @@ Below each learning objective is a list of general expectations for meeting that
     4. Includes at least 1 footnote
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -381,7 +381,7 @@ Below each learning objective is a list of general expectations for meeting that
     4. No additional steps are needed (e.g., finding data, determining necessary packages to install and load, running unsourced scripts)
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -448,13 +448,8 @@ Thoughtful reflections may earn engagement points.
 
 <!-- Reflection below this line -->
 
-
-
-
-
-
-
-
+Encountered difficulties when renaming the github repository and the project as the two become disconnected, but able to remedy issue through online help
+: needed to change the version control origin url, then needed to use terminal commands to enable tracking information between the local and remote branch, merge the them and set the remote as upstream
 
 <!-- Do not edit below this line. -->
 
