@@ -42,8 +42,10 @@ You may additionally or alternatively complete the [Level 2 Data Cleaning assign
 
 ```{r}
 #| label: setup
+
 library(tidyverse)
 set.seed(1234)
+
 ```
 
 
@@ -52,7 +54,6 @@ set.seed(1234)
 Read in and inspect the messy dataset `messy-mtcars.csv`.
 
 ```{r}
-
 #| label: read-messy-data
 
 ### LEAVE THIS CHUNK AS-IS ###
@@ -93,6 +94,7 @@ head(goal.mtcars)
 # head(mtcars)
 
 head(mtcars)
+
 ```
 
 
@@ -136,7 +138,6 @@ I will change the data type from character to tbl.
 ## Create "clean" dataset
 
 ```{r}
-
 #| label: make-cleaning-dataset
 
 # Create a dataset to work with during the cleaning process called "clean.mtcars"
@@ -150,7 +151,6 @@ clean.mtcars <- messy.mtcars
 
 
 ```{r}
-
 #| label: rename-columns
 
 # Rename columns to match the original mtcars dataset
@@ -159,11 +159,11 @@ colnames(clean.mtcars)
 
 clean.mtcars <- clean.mtcars %>%
   rename("mpg" ="mpg (Miles/Gallon)", "cyl" = "cylinders", "hp" = "horsepower", "gear" = "gearbox", "disp" = "dsip", "carb" = "carburetors") %>%
-  column_to_rownames(var = " Car Model") 
+  column_to_rownames(var = " Car Model")
+
 ```
 
 ```{r}
-
 #| label: reorder-columns
 
 # Reorder columns to match the original mtcars dataset
@@ -175,7 +175,6 @@ clean.mtcars <- clean.mtcars %>%
 ```
 
 ```{r}
-
 #| label: correct-data-types
 
 # Correct variable data types
@@ -188,12 +187,12 @@ clean.mtcars <- clean.mtcars %>%
          hp = as.double(hp), drat = as.double(drat), wt = as.double(wt),
          qsec = as.double(qsec), vs = as.double(vs), am = as.double(am),
          gear = as.double(gear), carb = as.double(carb))
+
 ```
 
 ## Checkpoint 1
 
 ```{r}
-
 #| label: checkpoint-1
 
 # Inspect the current state of the dataset
@@ -236,6 +235,7 @@ clean.goal.diff <- diff_data(clean.mtcars, goal.mtcars)
 
 ?render_diff
 render_diff(clean.goal.diff)
+
 ```
 
 How is this method of identifying data discrepancies different from `all.equal()`? Which do you find more helpful at this point?
@@ -249,7 +249,6 @@ This method specifies and visualizes the changes required to get from “clean.m
 Identifying specific value problems and cleaning them might take a little creativity at times! Use the troubleshooting/debugging workflows we've discussed to get as far as you can.
 
 ```{r}
-
 #| label: remove-unwanted-spaces
 
 # Remove unwanted whitespace in any columns required
@@ -263,7 +262,6 @@ clean.mtcars <- clean.mtcars %>%
 ```
 
 ```{r}
-
 #| label: impute-missing-values
 
 # Impute missing values for cyl and hp
@@ -277,7 +275,6 @@ which(is.na(clean.mtcars)) #to check if there are still any NA values
 ```
 
 ```{r}
-
 #| label: round-numeric-values
 
 # Round numeric values
@@ -289,7 +286,6 @@ clean.mtcars$qsec <- round(clean.mtcars$qsec, 2)
 ```
 
 ```{r}
-
 #| label: fix-typos
 
 # Fix typos in model names
@@ -307,15 +303,16 @@ clean.mtcars <- clean.mtcars %>%
          model = str_replace_all(model, "L0tus Europa", "Lotus Europa"))
 
 #Not exactly 6 lines; not sure whether there is a more efficient way to do this
+
 ```
 
 ```{r}
-
 #| label: remove-extra-column
 
 # Remove the extra column
 
 # I don't have an extra column.
+
 ```
 
 
@@ -407,7 +404,8 @@ clean.mtcars$wt_category <- factor(clean.mtcars$wt_category) %>%
 #Sort data by wt_category
 
 clean.mtcars <- clean.mtcars %>%
-  arrange(wt_category) #note that it sorts with heavy then medium then light due to order reveral
+  arrange(wt_category) #note that it sorts with heavy then medium then light due to order reversal
+
 ```
 
 ```{r}
@@ -418,6 +416,7 @@ clean.mtcars$mpg_per_cyl <- clean.mtcars$mpg/clean.mtcars$cyl
 #Round the values to 2 dp
 
 clean.mtcars$mpg_per_cyl <- round(clean.mtcars$mpg_per_cyl, 2)
+
 ```
 
 ```{r}
@@ -438,6 +437,7 @@ clean.mtcars.auto <- clean.mtcars %>%
 
 clean.mtcars.manual <- clean.mtcars %>%
   filter(am ==! 0)
+
 ```
 
 
@@ -466,6 +466,7 @@ clean.mtcars <- clean.mtcars %>%
 # Export data
 
 write.csv(clean.mtcars, "01_data-cleaning/01_cleaning-level-1/clean-mtcars.csv")
+
 ```
 
 
@@ -497,6 +498,7 @@ clean.mtcars.metric <- clean.mtcars %>%
   rename(kmpg = mpg, kmpg_per_cyl = mpg_per_cyl)
 
 # Now we get standard metric units yay
+
 ```
 
 ```{r}
@@ -511,7 +513,6 @@ clean.mtcars.metric <- clean.mtcars %>%
 #Test for whether mpg differs for two types of transmissions
 
 mean(clean.mtcars.auto$am)
-
 
 ```
 
