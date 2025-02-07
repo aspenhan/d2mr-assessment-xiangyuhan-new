@@ -474,8 +474,10 @@ write.csv(clean.mtcars, "01_data-cleaning/01_cleaning-level-1/clean-mtcars.csv")
 
 *Optional:* If you have the time and interest, continue transforming this dataset as you please. Create new columns based on the existing ones, reformat strings, try your hand at a regex replacement, summarize by groups (factor levels), visualize a simple relationship, or anything else you can think of. You can do this in addition to or instead of the suggested additional cleaning tasks above.
 
+Foremost, I convert the data to metric units because that is more standardised in the world of science.
+
 ```{r}
-#| label: Convert miles to kilometres
+#| label: Convert to metric units
 
 # Define function which can convert imperial to metric units; put distance as the first argument and weight as the second argument
 
@@ -495,17 +497,98 @@ clean.mtcars.metric <- clean.mtcars %>%
   mutate(mpg = imp_to_metric(mpg),
          mpg_per_cyl = imp_to_metric(mpg_per_cyl),
          wt = imp_to_metric(, wt)) %>%
-  rename(kmpg = mpg, kmpg_per_cyl = mpg_per_cyl)
+  rename(kmpg = mpg, kmpg_category = mpg_category, kmpg_per_cyl = mpg_per_cyl, )
 
-# Now we get standard metric units yay
+# Now we get standard metric units yay; I will be working with this dataset in metric units
 
 ```
+
+Now, I will perform some data visualisations.
+
+I am first interested in the distribution of fuel efficiency and weight categories.
 
 ```{r}
-#| label: Scatterplot of horsepower
+#| label: Km per gallon categories barplot
 
+kmpg_cat_bar <- ggplot(data = clean.mtcars.metric, aes(x = kmpg_category)) +
+  geom_bar(fill = "lightblue") +
+  labs(title = "Distribution of cars' fuel efficiency", x = "Km per gallon", y = "Number of cars") +
+  theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
+        axis.title = element_text(family = "serif", size = (13)),
+        axis.text = element_text(family = "serif", size = (11)))
 
+kmpg_cat_bar
 ```
+
+
+```{r}
+#| label : Weight categories barplot
+
+wt_cat_bar <- ggplot(data = clean.mtcars.metric, aes(x = wt_category, fill = wt_category)) +
+  geom_bar(fill = "darkgreen") +
+  labs(title = "Distribution of cars' weights", x = "Weight", y = "Number of cars") +
+    theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
+        axis.title = element_text(family = "serif", size = (13)),
+        axis.text = element_text(family = "serif", size = (11)))
+
+wt_cat_bar
+```
+
+We see that most cars fall in the medium categories for both km per gallon and weight categories.
+
+Next, I am interested in the relationship between fuel efficiency band horsepower, both with and without controlling for weight.
+
+```{r}
+#| label: Kmpg against hp scatterplots
+
+hp_kmpg_scatter <- ggplot(data = clean.mtcars.metric, aes(x = hp, y = kmpg)) +
+  geom_point(color = "red") +
+  labs(title = "Relationship between fuel efficiency and horsepower", x = "Horsepower", y = "Km per gallon") + 
+  theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
+        axis.title = element_text(family = "serif", size = (13)),
+        axis.text = element_text(family = "serif", size = (11)))
+
+hp_kmpg_scatter
+
+hp_kmpg_bywt_scatter <- ggplot(data = clean.mtcars.metric, aes(x = hp, y = kmpg)) +
+  geom_point(aes(color = wt_category)) + facet_wrap(. ~ wt_category) +
+  labs(title = "Fuel efficiency vs horsepower grouped by weight", x = "Horsepower", y = "Km per gallon", color = "Weight category") +
+  theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
+        axis.title = element_text(family = "serif", size = (13)),
+        axis.text = element_text(family = "serif", size = (11)),
+        strip.text.x = element_text(family = "serif", size = (12)),
+        legend.title = element_text(family = "serif", size = (12)),
+        legend.text = element_text(family = "serif", size = (11)))
+
+hp_kmpg_bywt_scatter
+```
+
+We see that in general, fuel efficiency is negatively correlated with horsepower, and after grouping by weight, we see a lower variability in the relationship for medium weight cars, with more of the variability coming from the heavy and light cars.
+
+Finally, I want to see how horsepower varies with the number of cylinders and carburetors.
+
+```{r}
+#| label: Horsepower histograms by cylinders and carburetors
+
+hp__bywtandcyl_hist <- ggplot(data = clean.mtcars.metric, aes(x = hp)) +
+  geom_histogram(binwidth = 5, aes(fill = factor(interaction(cyl, carb)))) +
+  facet_grid(carb ~ cyl, labeller = label_both) +
+  labs(title = "Distribution of horsepower by number of carburetors and cylinders", x = "Horsepower", fill = "Number of cylinders and carburetors") +
+  guides(fill = "none") +
+  theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
+        axis.title = element_text(family = "serif", size = (13)),
+        axis.text = element_text(family = "serif", size = (11)),
+        strip.text.x = element_text(family = "serif", size = (12)),
+        legend.title = element_text(family = "serif", size = (12)),
+        legend.text = element_text(family = "serif", size = (11)),
+        strip.text.y = element_text(angle = 0))
+
+hp__bywtandcyl_hist
+```
+
+We see that holding the number of carburetors constant, horsepower generally increases in the number of cylinders (reading horizontally across), and similarly, holding the number of cylinders constant, horsepower also generally increases in the number of carburetors (reading vertically down).
+
+Moving on, I will perform some statistical inference on the data.
 
 ```{r}
 #| label: Test for difference in mpg between transmission types
