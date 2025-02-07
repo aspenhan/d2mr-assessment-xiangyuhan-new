@@ -46,6 +46,24 @@ You may additionally or alternatively complete the [Level 2 Data Cleaning assign
 library(tidyverse)
 set.seed(1234)
 
+#change working directory as needed
+setwd("C:\\Users\\aspen\\MAPSS Coursework\\From Data to Manuscript in R\\mini-projects\\d2mr-assessment-xiangyuhan-new\\01_data-cleaning\\01_cleaning-level-1")
+
+#Load packages for summary statistics and tables
+library(texreg)
+library(gt)
+library(gtsummary)
+
+#Load packages for regression and other statistical analysis
+library(car)
+library(estimatr)
+library(lmtest)
+library(fixest)
+library(margins)
+library(nnet)
+library(sandwich)
+
+
 ```
 
 
@@ -63,7 +81,7 @@ Read in and inspect the messy dataset `messy-mtcars.csv`.
 # Read in messy-mtcars.csv
 messy.mtcars <- read_csv(
   ########################################
-  "01_data-cleaning\\01_cleaning-level-1\\messy-mtcars.csv", ## <-- THIS IS THE ONLY THING IN THIS CHUNK YOU CAN CHANGE IF NECESSARY
+  "messy-mtcars.csv", ## <-- THIS IS THE ONLY THING IN THIS CHUNK YOU CAN CHANGE IF NECESSARY
   ########################################
   trim_ws = FALSE, name_repair = "minimal", col_types = cols(.default = col_character()))
 
@@ -361,7 +379,7 @@ You can call it a day here, or continue with the optional cleaning tasks below. 
 7. Write the cleaned dataset as a csv file called `clean-mtcars.csv`, then read the csv back in maintaining the correct data types.
 
 ```{r}
-#| label: Categorise mpg and sort based on it
+#| label: Categorise-mpg
 
 #Set mpg below 15 as "low", 15 to below 30 as medium, and 30 or above as high
 
@@ -387,7 +405,7 @@ clean.mtcars <- clean.mtcars %>%
 ```
 
 ```{r}
-#| label: Categorise by weight
+#| label: Categorise-weight
 
 #Set weight below 2 as light, 2 to below 4 as medium, and 4 and above as heavy
 
@@ -398,6 +416,7 @@ clean.mtcars <- clean.mtcars %>%
     wt >= 4 ~ "heavy")) 
 
 #Set wt_category as factor and set level "ascending" from heavy to light
+
 clean.mtcars$wt_category <- factor(clean.mtcars$wt_category) %>%
   fct_relevel("heavy", "medium", "light")
 
@@ -409,7 +428,7 @@ clean.mtcars <- clean.mtcars %>%
 ```
 
 ```{r}
-#| label: Compute mpg per cyl
+#| label: Compute-mpg-per-cyl
 
 clean.mtcars$mpg_per_cyl <- clean.mtcars$mpg/clean.mtcars$cyl
 
@@ -420,7 +439,7 @@ clean.mtcars$mpg_per_cyl <- round(clean.mtcars$mpg_per_cyl, 2)
 ```
 
 ```{r}
-#| label: Filter by transmission type
+#| label: Filter-by-transmission
 
 #Check information about the mtcars dataset
 
@@ -442,7 +461,7 @@ clean.mtcars.manual <- clean.mtcars %>%
 
 
 ```{r}
-#| label: Convert appropriate variables to logical type
+#| label: Convert-to-logical
 
 ?mtcars
 str(clean.mtcars)
@@ -456,7 +475,7 @@ clean.mtcars <- clean.mtcars %>%
 ```
 
 ```{r}
-#| label: Export cleaned dataset
+#| label: Export-cleaned-data
 
 # Arrange based on weight category and then mpg category
 
@@ -465,7 +484,7 @@ clean.mtcars <- clean.mtcars %>%
 
 # Export data
 
-write.csv(clean.mtcars, "01_data-cleaning/01_cleaning-level-1/clean-mtcars.csv")
+write.csv(clean.mtcars, "clean-mtcars.csv")
 
 ```
 
@@ -474,10 +493,9 @@ write.csv(clean.mtcars, "01_data-cleaning/01_cleaning-level-1/clean-mtcars.csv")
 
 *Optional:* If you have the time and interest, continue transforming this dataset as you please. Create new columns based on the existing ones, reformat strings, try your hand at a regex replacement, summarize by groups (factor levels), visualize a simple relationship, or anything else you can think of. You can do this in addition to or instead of the suggested additional cleaning tasks above.
 
-Foremost, I convert the data to metric units because that is more standardised in the world of science.
-
 ```{r}
-#| label: Convert to metric units
+#| label: Unit-conversion-function
+#| echo: false
 
 # Define function which can convert imperial to metric units; put distance as the first argument and weight as the second argument
 
@@ -491,57 +509,100 @@ imp_to_metric <- function(x, y) {
   return(c(x * 1.60934, y * 0.453592))  # Convert both if neither is missing
 }
 
-# Convert dataset variables to metric units
+```
 
-clean.mtcars.metric <- clean.mtcars %>%
+```{r}
+#| label: Read-final-data
+
+# Convert dataset to metric units
+
+mtcars.final <- clean.mtcars %>%
   mutate(mpg = imp_to_metric(mpg),
          mpg_per_cyl = imp_to_metric(mpg_per_cyl),
          wt = imp_to_metric(, wt)) %>%
   rename(kmpg = mpg, kmpg_category = mpg_category, kmpg_per_cyl = mpg_per_cyl, )
 
-# Now we get standard metric units yay; I will be working with this dataset in metric units
+# This will be the finalised dataset for subsequent visualisation and analysis
+
+# Alternatively, if we did the above cleaning in a document, we can read in the exported data file by running the command below; note we will need to reorder the factor levels and the arrangement of rows in the data
+# read.csv("clean-mtcars.csv")
+
+# Alternatively, if the cleaning was done in an R script, we can source the above R script using the command below, which will preserve all the cleaning steps
+# source("name of R script file")
 
 ```
 
-Now, I will perform some data visualisations.
+I have converted the dataset to be in metric units for distances and weights and will perform some data visualisations and analysis.
 
-I am first interested in the distribution of fuel efficiency and weight categories.
+I am interested in the relationship between fuel efficiency and horsepower, controlling for physical and design features such as weight, number of cylinders and carburetors.
+
+I first compute some summary statistics of these variables of interest.
 
 ```{r}
-#| label: Km per gallon categories barplot
+#| label: Summary-stats
 
-kmpg_cat_bar <- ggplot(data = clean.mtcars.metric, aes(x = kmpg_category)) +
-  geom_bar(fill = "lightblue") +
-  labs(title = "Distribution of cars' fuel efficiency", x = "Km per gallon", y = "Number of cars") +
+sum_stats <- tbl_summary(mtcars.final, by = transmission_manual,
+                         include = c("kmpg", "hp", "wt", "cyl", "carb", "transmission_manual"),
+                         statistic = list(all_continuous() ~ "{mean} ({sd})",
+                                          all_categorical() ~ "{n} ({p}%)"),
+                         label = list(kmpg ~ "Kilometres per gallon", hp ~ "Horsepower", wt ~ "Weight", cyl ~ "Cylinders", carb ~ "Carburetors")
+                         ) %>%
+  add_overall(last = TRUE) %>%
+  modify_header(label ~ "**Car Feature**") %>%
+  modify_spanning_header(c("stat_1", "stat_2") ~ "**Manual transmission**") %>%
+  modify_caption("**Summary statistics of car features**")
+
+sum_stats
+
+#When outputting to pdf/ latex, might need to convert table to kable format as below to ensure it renders correctly
+#sum_stats %>% as_kable_extra(format = "latex", booktabs = TRUE, longtable = TRUE)
+
+```
+
+To delve deeper into the distributions of fuel efficiency and horsepower, I plot their density curves.
+
+```{r}
+#| label: Kmpg-density
+
+# Density plot of km per gallon
+
+kmpg_density <- ggplot(data = mtcars.final, aes(x = kmpg)) + 
+  geom_density(color = "green", size = 1) + 
+  labs(title = "Distribution of fuel efficiency", x = "Km per gallon", y = "Density") +
   theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
         axis.title = element_text(family = "serif", size = (13)),
         axis.text = element_text(family = "serif", size = (11)))
 
-kmpg_cat_bar
+kmpg_density
 ```
 
 
 ```{r}
-#| label : Weight categories barplot
+#| label: Horsepower-density
 
-wt_cat_bar <- ggplot(data = clean.mtcars.metric, aes(x = wt_category, fill = wt_category)) +
-  geom_bar(fill = "darkgreen") +
-  labs(title = "Distribution of cars' weights", x = "Weight", y = "Number of cars") +
+# Density plot of horsepower
+
+hp_density <- ggplot(data = mtcars.final, aes(x = hp)) +
+  geom_density(color = "blue", size = 1) +
+  labs(title = "Distribution of horsepower", x = "Horsepower", y = "Density") +
     theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
         axis.title = element_text(family = "serif", size = (13)),
         axis.text = element_text(family = "serif", size = (11)))
 
-wt_cat_bar
+hp_density
+
 ```
 
-We see that most cars fall in the medium categories for both km per gallon and weight categories.
+We see that both distributions are single-peaked, with the means 
 
-Next, I am interested in the relationship between fuel efficiency band horsepower, both with and without controlling for weight.
+Next, I am interested in the relationship between fuel efficiency and horsepower, both with and without controlling for weight.
 
 ```{r}
-#| label: Kmpg against hp scatterplots
+#| label: Kmpg-hp-scatterplot
 
-hp_kmpg_scatter <- ggplot(data = clean.mtcars.metric, aes(x = hp, y = kmpg)) +
+# Scatterplot of kmpg against hp
+
+hp_kmpg_scatter <- ggplot(data = mtcars.final, aes(x = hp, y = kmpg)) +
   geom_point(color = "red") +
   labs(title = "Relationship between fuel efficiency and horsepower", x = "Horsepower", y = "Km per gallon") + 
   theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
@@ -550,8 +611,11 @@ hp_kmpg_scatter <- ggplot(data = clean.mtcars.metric, aes(x = hp, y = kmpg)) +
 
 hp_kmpg_scatter
 
-hp_kmpg_bywt_scatter <- ggplot(data = clean.mtcars.metric, aes(x = hp, y = kmpg)) +
-  geom_point(aes(color = wt_category)) + facet_wrap(. ~ wt_category) +
+# Group the scatterplots by weight categories
+
+hp_kmpg_bywt_scatter <- ggplot(data = mtcars.final, aes(x = hp, y = kmpg)) +
+  geom_point(aes(color = wt_category)) + 
+  facet_wrap(. ~ wt_category) +
   labs(title = "Fuel efficiency vs horsepower grouped by weight", x = "Horsepower", y = "Km per gallon", color = "Weight category") +
   theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
         axis.title = element_text(family = "serif", size = (13)),
@@ -565,15 +629,17 @@ hp_kmpg_bywt_scatter
 
 We see that in general, fuel efficiency is negatively correlated with horsepower, and after grouping by weight, we see a lower variability in the relationship for medium weight cars, with more of the variability coming from the heavy and light cars.
 
-Finally, I want to see how horsepower varies with the number of cylinders and carburetors.
+Finally, I want to see how fuel efficiency and horsepower varies with the number of cylinders and carburetors.
 
 ```{r}
-#| label: Horsepower histograms by cylinders and carburetors
+#| label: Horsepower histograms
 
-hp__bywtandcyl_hist <- ggplot(data = clean.mtcars.metric, aes(x = hp)) +
+# Histograms of horsepower grouped by number of cylinders and carburetors
+
+hp__bycylcarb_hist <- ggplot(data = mtcars.final, aes(x = hp)) +
   geom_histogram(binwidth = 5, aes(fill = factor(interaction(cyl, carb)))) +
   facet_grid(carb ~ cyl, labeller = label_both) +
-  labs(title = "Distribution of horsepower by number of carburetors and cylinders", x = "Horsepower", fill = "Number of cylinders and carburetors") +
+  labs(title = "Distribution of horsepower by number of carburetors and cylinders", x = "Horsepower", y = "Number of cars", fill = "Number of cylinders and carburetors") +
   guides(fill = "none") +
   theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
         axis.title = element_text(family = "serif", size = (13)),
@@ -583,12 +649,13 @@ hp__bywtandcyl_hist <- ggplot(data = clean.mtcars.metric, aes(x = hp)) +
         legend.text = element_text(family = "serif", size = (11)),
         strip.text.y = element_text(angle = 0))
 
-hp__bywtandcyl_hist
+hp__bycylcarb_hist
 ```
 
 We see that holding the number of carburetors constant, horsepower generally increases in the number of cylinders (reading horizontally across), and similarly, holding the number of cylinders constant, horsepower also generally increases in the number of carburetors (reading vertically down).
 
-Moving on, I will perform some statistical inference on the data.
+Moving on, I will perform some statistical analysis and inference on the data.
+
 
 ```{r}
 #| label: Test for difference in mpg between transmission types
