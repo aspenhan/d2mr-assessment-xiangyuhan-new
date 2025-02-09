@@ -21,14 +21,9 @@ Mini-project title: cleaning-level-1
 
 Submission date: 2/8/2025
 
-<<<<<<< HEAD
-Project GitHub subdirectory URL: https://github.com/aspenhan/d2mr-assessment-xiangyuhan-new/tree/f33d331a2601145de3ac2153cd1697b8425890cd/01_data-cleaning/01_cleaning-level-1
-=======
 Project GitHub subdirectory URL: https://github.com/aspenhan/d2mr-assessment-xiangyuhan-new/tree/3210218f6bf177146448cd3ded7a1665e6039471/01_data-cleaning/01_cleaning-level-1
->>>>>>> 7d4d8d0 (complete assessment file)
 
 URL or instructions to access additional materials, if needed:
-
 
 ## Additional information
 
