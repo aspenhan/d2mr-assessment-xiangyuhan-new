@@ -19,9 +19,9 @@ Section: 1
 
 Mini-project title: cleaning-level-1
 
-Submission date:
+Submission date: 2/8/2025
 
-Project GitHub subdirectory URL:
+Project GitHub subdirectory URL: https://github.com/aspenhan/d2mr-assessment-xiangyuhan-new/tree/f33d331a2601145de3ac2153cd1697b8425890cd/01_data-cleaning/01_cleaning-level-1
 
 URL or instructions to access additional materials, if needed:
 
@@ -29,12 +29,12 @@ URL or instructions to access additional materials, if needed:
 ## Additional information
 
 1. Did you complete the project with direct collaborators or general support? If so, who did you collaborate with and what was/were their contribution(s)?
-    1. Direct collaborators (students who will be turning in a version of the same project) and their contributions:
-    2. General support (students who helped you with debugging, conceptual understanding, or the like) and their contributions:
+    1. Direct collaborators (students who will be turning in a version of the same project) and their contributions: NA
+    2. General support (students who helped you with debugging, conceptual understanding, or the like) and their contributions: NA
 2. Did you use LLMs or other AI models to generate text or code for this project? If so, which tools did you use and how did you use them? Remember in this class you *are* allowed (even encouraged) to use these tools for help with coding, but not for writing text. This can be very brief, just one or two sentences is fine unless you have more you'd like to add.
-    1. answer here 
+    1. Yes, I used chatgpt to understand error messages, debug code, and format my plots and tables.
 3. For off-the-menu projects only, did you complete the project as proposed? If not, what changed?
-    1. answer here or n/a
+    1. NA
 
 ## Assessed Objectives
 
@@ -155,7 +155,7 @@ Below each learning objective is a list of general expectations for meeting that
 
 11. Use `stringr` functions to work with string variables
 
-    1. Uses ate least 2 unique `stringr` functions 
+    1. Uses at least 2 unique `stringr` functions 
     2. Uses `stringr` functions in a data transformation pipeline
 
         -   [ ] Objective attempt
@@ -181,7 +181,7 @@ Below each learning objective is a list of general expectations for meeting that
     2. At least one plot is multi-variable
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -190,7 +190,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Uses at least 2 unique data-mapped `aes()` arguments (e.g., color, shape, size) to group data in a plot in one or multiple plots
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -200,7 +200,7 @@ Below each learning objective is a list of general expectations for meeting that
     2. Combines facets with other dynamic grouping aesthetics
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -212,7 +212,7 @@ Below each learning objective is a list of general expectations for meeting that
     4. Uses at least 1 static aesthetic (e.g., color, shape, size) that improves visual clarity without mapping to data
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -225,7 +225,7 @@ Below each learning objective is a list of general expectations for meeting that
     3. Presents results in narrative text, table, or plot
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -236,7 +236,7 @@ Below each learning objective is a list of general expectations for meeting that
     3. Presents results in narrative text, table, or plot
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -248,7 +248,7 @@ Below each learning objective is a list of general expectations for meeting that
     4. Uses dynamic inline R code to render data-dependent text
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -288,7 +288,7 @@ Below each learning objective is a list of general expectations for meeting that
     4.  Chunks are distributed throughout the manuscript, sensibly placed near the text they support
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments: 
         
@@ -300,11 +300,11 @@ Below each learning objective is a list of general expectations for meeting that
     4. Organizes setup chunks sensibly
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
-24. Render publication-quality tables, figures, and images from code chunks
+24. Render publication-quality tables, figures, and images from code chunks*
 
     1. Produces at least 1 table or image with a caption
     2. Produces at least 1 figure/plot with a markdown caption
@@ -313,11 +313,11 @@ Below each learning objective is a list of general expectations for meeting that
     5. References render without error and link to the correct table/figure in pdf/html output
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
-25. Execute descriptive analyses and/or hypothesis testing in code chunks
+25. Execute descriptive analyses and/or hypothesis testing in code chunks*
 
     1. At least 1 code chunk executes a descriptive analysis (e.g., `summary()`, `table()`)
     2. At least 1 code chunk executes a hypothesis test (e.g., `t.test()`, `chisq.test()`)
@@ -326,7 +326,7 @@ Below each learning objective is a list of general expectations for meeting that
     5. Chunks are organized sensibly and appear near the text they support
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -337,7 +337,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Includes all necessary metadata, output options, and formatting options necessary to render an APA styled document (or other specified style if appropriate for the project)
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -349,7 +349,7 @@ Below each learning objective is a list of general expectations for meeting that
     4. Includes at least 1 footnote
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -360,7 +360,7 @@ Below each learning objective is a list of general expectations for meeting that
     3. Ideally, uses inline R references for all data-dependent text
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -369,7 +369,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Uses inline R functions to render at least 3 unique data-dependent text outputs (e.g., performs rounding, calculates means, subtracts one list length from another, etc. -- inline rather than in a code chunk)
 
     -   [ ] Objective attempt
-    -   [ ] Unique objective attempt
+    -   [x] Unique objective attempt
     -   [ ] Objective met
     -   Grader comments:
 
@@ -426,6 +426,18 @@ If you believe you have demonstrated any of the above skills sufficiently to cou
 
 <!-- Explanation of demonstrated unassessed objectives below this line -->
 
+I believe I have demonstrated 
+
+1.  use frequent, informative comments in code and markdown: I explained my code, pointed out alternative ways to do things, altered/additional code which may be required 
+2.  find and understand documentation for R packages and functions: I had to consult these particularly in the formatting of my ggplots, the use of the gtsummary package to compute and output summary statistics, and the use of the texreg package to output my regression in table format in quarto
+3.  follow a debugging workflow with independent and collaborative strategies: I first read the error messages to identify where and what went wrong, and if I was unable to understand it, then I would google it, go on stackexchange, or ask chatgpt etc.
+4.  parse and investigate error messages: see above
+10. determine when code is better suited for a sourced script vs. a notebook chunk and source scripts appropriately: I explained this at the beginning of the unguided task component where I prepared my final data for analysis.
+11. explain and apply the “grammar of graphics”: I did this for my ggplots.
+12. name and differentiate R data types: I did this for the different datasets leading up to my final analysis.
+13. name and differentiate R objects: I did this for the various datasets, functions, plots, tables, and statistical objects.
+15. recognize and interpret common data visualizations: I did this in my data visualisations.
+16. determine most appropriate visualizations and analyses for specific research questions and data: I did this in my data visualisations, such as choosing between histograms and density plots.
 
 <!-- Explanation of demonstrated unassessed objectives above this line -->
 
@@ -448,13 +460,11 @@ Thoughtful reflections may earn engagement points.
 
 <!-- Reflection below this line -->
 
+The most fulfilling, but also frustrating, part of this project was formatting the tables and plots to incorporate nicely and seamlessly into the quarto output, as it was a tedious process to learn and implement all the idiosyncrasies in changing the aesthetics of the ggplots, the gtsummary tables, and the texreg tables.
 
+In particular, the texreg package is able to beautifully convert regression results to tabular formats but the output is in html or latex code, so I had to find a way such that rendering the document produces the table output in the desired form instead of just the code.
 
-
-
-
-
-
+However, I think this was a very beneficial learning experience as the ability to integrate all these nice figures produced from various figure production packages with the narrative text via quarto will be very applicable to my research work.
 
 <!-- Do not edit below this line. -->
 
