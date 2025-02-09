@@ -1,7 +1,15 @@
 ---
-title: 'Level 1 Data Cleaning: Clean the mtcars Dataset'
+title: 'Level 1 Data Cleaning: Clean the mtcars dataset'
+
 editor_options: 
   chunk_output_type: console
+
+output: html
+
+fig-width: 6
+fig-asp: 0.618
+fig-align: "center"
+
 ---
 
 # Objective
@@ -38,7 +46,7 @@ You may additionally or alternatively complete the [Level 2 Data Cleaning assign
 
 # Setup
 
-## Loading libraries and set seed
+## Load libraries and set seed
 
 ```{r}
 #| label: setup
@@ -62,10 +70,17 @@ library(fixest)
 library(margins)
 library(nnet)
 library(sandwich)
-
-
 ```
 
+```{css}
+/*| label: center-figure-captions */
+
+figcaption {
+  margin: auto;
+  text-align: center;
+}
+
+```
 
 ## Read in and inspect messy data
 
@@ -493,9 +508,12 @@ write.csv(clean.mtcars, "clean-mtcars.csv")
 
 *Optional:* If you have the time and interest, continue transforming this dataset as you please. Create new columns based on the existing ones, reformat strings, try your hand at a regex replacement, summarize by groups (factor levels), visualize a simple relationship, or anything else you can think of. You can do this in addition to or instead of the suggested additional cleaning tasks above.
 
+# Investigating the relationship between fuel efficiency and horsepower
+
+## Prepare final dataset for analysis
+
 ```{r}
 #| label: Unit-conversion-function
-#| echo: false
 
 # Define function which can convert imperial to metric units; put distance as the first argument and weight as the second argument
 
@@ -532,14 +550,26 @@ mtcars.final <- clean.mtcars %>%
 
 ```
 
-I have converted the dataset to be in metric units for distances and weights and will perform some data visualisations and analysis.
+I have converted the dataset to be in metric units for distances and weights for subsequent analysis.
 
-I am interested in the relationship between fuel efficiency and horsepower, controlling for physical and design features such as weight, number of cylinders and carburetors.
+The variables in the dataset are `` `{r} colnames(mtcars.final) ` ``.
 
-I first compute some summary statistics of these variables of interest.
+I am interested in the relationship between fuel efficiency (``kpmg``) and horsepower (``hp``), controlling for certain physical and design features, namely[^2]
+
+* Weight (``wt``)
+* Number of cylinders (``cyl``)
+* Number of carburetors (``carb``)
+* Transmission type (``transmission_manual``)
+
+[^2]: I have restricted focus to selected car characteristics given the limited number of observations and these have most grounds a priori for affecting fuel efficiency and horsepower.
+
+## Summary statistics
+
+@fig-summary-stats shows some summary statistics of these variables of interest.
 
 ```{r}
-#| label: Summary-stats
+#| label: fig-summary-stats
+#| fig-cap: "**Summary statistics of car characteristics**"
 
 sum_stats <- tbl_summary(mtcars.final, by = transmission_manual,
                          include = c("kmpg", "hp", "wt", "cyl", "carb", "transmission_manual"),
@@ -548,66 +578,80 @@ sum_stats <- tbl_summary(mtcars.final, by = transmission_manual,
                          label = list(kmpg ~ "Kilometres per gallon", hp ~ "Horsepower", wt ~ "Weight", cyl ~ "Cylinders", carb ~ "Carburetors")
                          ) %>%
   add_overall(last = TRUE) %>%
-  modify_header(label ~ "**Car Feature**") %>%
-  modify_spanning_header(c("stat_1", "stat_2") ~ "**Manual transmission**") %>%
-  modify_caption("**Summary statistics of car features**")
+  modify_header(label ~ "**Characteristics**") %>%
+  modify_spanning_header(c("stat_1", "stat_2") ~ "**Manual transmission**")
 
 sum_stats
 
-#When outputting to pdf/ latex, might need to convert table to kable format as below to ensure it renders correctly
+#If outputting to pdf/ latex, might need to convert table to kable format as below to ensure it renders correctly
 #sum_stats %>% as_kable_extra(format = "latex", booktabs = TRUE, longtable = TRUE)
 
 ```
 
-To delve deeper into the distributions of fuel efficiency and horsepower, I plot their density curves.
+# Data visualisations
+
+To delve deeper into the distributions of fuel efficiency and horsepower, I plot their density curves in @fig-kmpg-density and @fig-hp-density respectively.
 
 ```{r}
-#| label: Kmpg-density
+#| label: Default-plot-themes
+
+def_theme <- theme(plot.title = element_text(family = "serif", size = 15, hjust = 0.5),
+                  axis.title = element_text(family = "serif", size = 13),
+                  axis.text = element_text(family = "serif", size = 11),
+                  strip.text.x = element_text(family = "serif", size = 12),
+                  strip.text.y = element_text(family = "serif", size = 12, angle = 0),
+                  legend.title = element_text(family = "serif", size = 12),
+                  legend.text = element_text(family = "serif", size = 11))
+```
+
+```{r}
+#| label: fig-kmpg-density
+#| fig-cap: "**Distribution of fuel efficiency**"
 
 # Density plot of km per gallon
 
 kmpg_density <- ggplot(data = mtcars.final, aes(x = kmpg)) + 
   geom_density(color = "green", size = 1) + 
-  labs(title = "Distribution of fuel efficiency", x = "Km per gallon", y = "Density") +
-  theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
-        axis.title = element_text(family = "serif", size = (13)),
-        axis.text = element_text(family = "serif", size = (11)))
+  labs(x = "Km per gallon", y = "Density") +
+  def_theme
 
 kmpg_density
+
 ```
 
 
 ```{r}
-#| label: Horsepower-density
+#| label: fig-hp-density
+#| fig-cap: "**Distribution of horsepower**"
 
 # Density plot of horsepower
 
 hp_density <- ggplot(data = mtcars.final, aes(x = hp)) +
   geom_density(color = "blue", size = 1) +
-  labs(title = "Distribution of horsepower", x = "Horsepower", y = "Density") +
-    theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
-        axis.title = element_text(family = "serif", size = (13)),
-        axis.text = element_text(family = "serif", size = (11)))
+  labs(x = "Horsepower", y = "Density") +
+  def_theme
 
 hp_density
 
 ```
 
-We see that both distributions are single-peaked, with the means 
+Both distributions are single-peaked, and horsepower has a more left-skewed distribution. The peaks (modes) are also relatively close to their respective means and medians, where horsepower mean and median are `{r} round(mean(mtcars.final$hp), 2) ` and `{r} round(median(mtcars.final$hp), 2) ` and fuel efficiency mean and median are `{r} round(mean(mtcars.final$kmpg), 2) ` and `{r} round(median(mtcars.final$kmpg), 2) `. Horsepower shows greater difference between its mean, median, and mode, which is consistent with its less symmetric distribution.
 
-Next, I am interested in the relationship between fuel efficiency and horsepower, both with and without controlling for weight.
+Next, I look at the relationship between fuel efficiency and horsepower, both with and without controlling for weight.
 
 ```{r}
-#| label: Kmpg-hp-scatterplot
+#| label: fig-kmpg-hp-scatterplot
+#| fig-cap: "**Relationship between fuel efficiency and horsepower**"
+#| fig-subcap:
+#|   - Ungrouped
+#|   - Grouped by weight
 
 # Scatterplot of kmpg against hp
 
 hp_kmpg_scatter <- ggplot(data = mtcars.final, aes(x = hp, y = kmpg)) +
-  geom_point(color = "red") +
-  labs(title = "Relationship between fuel efficiency and horsepower", x = "Horsepower", y = "Km per gallon") + 
-  theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
-        axis.title = element_text(family = "serif", size = (13)),
-        axis.text = element_text(family = "serif", size = (11)))
+  geom_point(color = "purple") +
+  labs(x = "Horsepower", y = "Km per gallon") + 
+  def_theme
 
 hp_kmpg_scatter
 
@@ -616,56 +660,111 @@ hp_kmpg_scatter
 hp_kmpg_bywt_scatter <- ggplot(data = mtcars.final, aes(x = hp, y = kmpg)) +
   geom_point(aes(color = wt_category)) + 
   facet_wrap(. ~ wt_category) +
-  labs(title = "Fuel efficiency vs horsepower grouped by weight", x = "Horsepower", y = "Km per gallon", color = "Weight category") +
-  theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
-        axis.title = element_text(family = "serif", size = (13)),
-        axis.text = element_text(family = "serif", size = (11)),
-        strip.text.x = element_text(family = "serif", size = (12)),
-        legend.title = element_text(family = "serif", size = (12)),
-        legend.text = element_text(family = "serif", size = (11)))
+  labs(x = "Horsepower", y = "Km per gallon", color = "Weight category") +
+  def_theme
 
 hp_kmpg_bywt_scatter
+
 ```
 
-We see that in general, fuel efficiency is negatively correlated with horsepower, and after grouping by weight, we see a lower variability in the relationship for medium weight cars, with more of the variability coming from the heavy and light cars.
+Fuel efficiency is negatively correlated with horsepower, and after grouping by weight, we see a lower variability in the relationship for medium weight cars, with more of the variance coming from the heavy and light cars.
 
-Finally, I want to see how fuel efficiency and horsepower varies with the number of cylinders and carburetors.
+Finally, I want to see how fuel efficiency and horsepower varies with the number of cylinders and carburetors. I plot histograms as there are insufficient data points for certain combinations of cylinder and carburetor numbers to generate histograms.
 
 ```{r}
-#| label: Horsepower histograms
+#| label: fig-kmpg-histograms-bycylcarb
+#| fig-cap: "**Distribution of fuel efficiency by number of carburetors and cylinders**"
+#| fig-asp: 1.2
 
-# Histograms of horsepower grouped by number of cylinders and carburetors
+# Histograms of kmpg grouped by no. of cyls and carbs
+
+kmpg__bycylcarb_hist <- ggplot(data = mtcars.final, aes(x = kmpg)) +
+  geom_histogram(binwidth = 1, aes(fill = factor(interaction(cyl, carb)))) +
+  facet_grid(carb ~ cyl, labeller = label_both) +
+  labs(x = "Km per gallon", y = "Number of cars", fill = "Number of cylinders and carburetors") +
+  guides(fill = "none") +
+  def_theme
+
+kmpg__bycylcarb_hist
+```
+
+```{r}
+#| label: fig-hp-histograms-bycylcarb
+#| fig-cap: "**Distribution of horsepower by number of carburetors and cylinders**"
+#| fig-asp: 1.2
+
+# Histograms of hp grouped by no. of cyls and carbs
 
 hp__bycylcarb_hist <- ggplot(data = mtcars.final, aes(x = hp)) +
   geom_histogram(binwidth = 5, aes(fill = factor(interaction(cyl, carb)))) +
   facet_grid(carb ~ cyl, labeller = label_both) +
-  labs(title = "Distribution of horsepower by number of carburetors and cylinders", x = "Horsepower", y = "Number of cars", fill = "Number of cylinders and carburetors") +
+  labs(x = "Horsepower", y = "Number of cars", fill = "Number of cylinders and carburetors") +
   guides(fill = "none") +
-  theme(plot.title = element_text(family = "serif", size = (15), hjust = 0.5),
-        axis.title = element_text(family = "serif", size = (13)),
-        axis.text = element_text(family = "serif", size = (11)),
-        strip.text.x = element_text(family = "serif", size = (12)),
-        legend.title = element_text(family = "serif", size = (12)),
-        legend.text = element_text(family = "serif", size = (11)),
-        strip.text.y = element_text(angle = 0))
+  def_theme
 
 hp__bycylcarb_hist
+
 ```
 
-We see that holding the number of carburetors constant, horsepower generally increases in the number of cylinders (reading horizontally across), and similarly, holding the number of cylinders constant, horsepower also generally increases in the number of carburetors (reading vertically down).
+@fig-kmpg-histograms-bycylcarb shows that holding the number of carburetors constant, fuel efficiency seems to decrease in the number of cylinders, while holding the number of cylinders constant, fuel efficiency seems relatively constant in the number of carburetors.
 
-Moving on, I will perform some statistical analysis and inference on the data.
+Conversely, @fig-hp-histograms-bycylcarb shows that horsepower increases in both the number of cylinders and the number of carburetors holding the other constant.
 
+This suggests that the number of cylinders may be a confound in the relationship between horsepower and fuel efficiency since it is positively correlated with horsepower and negatively correlated with fuel efficiency, which would exaggerate the negative relationship between horsepower and fuel efficiency.
+
+# Regression analysis
+
+For a more formal analysis, I run a regression of fuel efficiency on horsepower controlling for other car characteristics. @fig-reg-table shows the results.
 
 ```{r}
-#| label: Test for difference in mpg between transmission types
+#| label: Kmpg-on-hp-regression
+ 
+# Regress kmpg on hp only
 
-#Test for whether mpg differs for two types of transmissions
+basic_reg <- lm_robust(kmpg ~ hp, mtcars.final)
 
-mean(clean.mtcars.auto$am)
+basic_reg
+
+# Regress kmpg on hp and other car characteristics
+
+extended_reg <- lm_robust(kmpg ~ hp + wt + cyl + carb + transmission_manual, mtcars.final)
+
+extended_reg
+
+# Store the regressions
+
+reg_models <- list(basic_reg, extended_reg)
+```
+
+<div style="text-align: center;">
+::: {#fig-reg-table}
+```{r}
+#| label: reg-table
+#| output: asis
+
+#Set output to asis because texreg functions output the raw code so want to interpret it as markdown syntax
+
+# Output the regressions to a table
+
+reg_table <- htmlreg(reg_models, stars = c(0.01, 0.05, 0.1), digits = 2,
+                     include.ci = FALSE,
+                     custom.model.names = c("Basic model", "Extended model"),
+                     custom.header = list("Kmpg" = 1:2),
+                     caption = NULL)
+
+reg_table
 
 ```
 
+**Regression of fuel efficiency on horsepower**
+
+:::
+
+</div>
+
+When horsepower is the *sole* regressor, it has a very statistically significant (<1%) negative correlation with fuel efficiency, where each additional horsepower unit is associated with `{r} round(coef(basic_reg)["hp"], 2) ` kilometres per gallon travelled. However, once we control for other car characteristics, this is no longer statistically significant at even 10%, showing the confounds we were worried about.
+
+In fact, weight is the only factor which has a significant relationship with fuel efficiency, with a coefficient of `{r} round(coef(extended_reg)["wt"], 2) `. Fuel efficiency does not differ significantly across different number of cylinders or carburetors, nor between the two transmission types (automatic and manual). 
 
 # Submission & Assessment
 
