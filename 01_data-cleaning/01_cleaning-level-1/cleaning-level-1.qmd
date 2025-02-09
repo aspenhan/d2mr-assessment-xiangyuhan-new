@@ -445,6 +445,8 @@ clean.mtcars <- clean.mtcars %>%
 ```{r}
 #| label: Compute-mpg-per-cyl
 
+# Create new variable mpg per number of cylinders
+
 clean.mtcars$mpg_per_cyl <- clean.mtcars$mpg/clean.mtcars$cyl
 
 #Round the values to 2 dp
@@ -492,11 +494,6 @@ clean.mtcars <- clean.mtcars %>%
 ```{r}
 #| label: Export-cleaned-data
 
-# Arrange based on weight category and then mpg category
-
-clean.mtcars <- clean.mtcars %>%
-  arrange(desc(wt_category), mpg_category)
-
 # Export data
 
 write.csv(clean.mtcars, "clean-mtcars.csv")
@@ -542,11 +539,13 @@ mtcars.final <- clean.mtcars %>%
 
 # This will be the finalised dataset for subsequent visualisation and analysis
 
-# Alternatively, if we did the above cleaning in a document, we can read in the exported data file by running the command below; note we will need to reorder the factor levels and the arrangement of rows in the data
+# Alternatively, if we did the above cleaning in a document, we can read in the exported data file by running the command below
 # read.csv("clean-mtcars.csv")
+# However, note we will need to reorder the factor levels and the rearrange the data to what we want
 
-# Alternatively, if the cleaning was done in an R script, we can source the above R script using the command below, which will preserve all the cleaning steps
+# Alternatively, if the cleaning was done in an R script, we can source the above R script using the command below
 # source("name of R script file")
+# Generally, this is preferred so it does not clutter the manuscript and it will preserve all the cleaning steps
 
 ```
 
@@ -571,15 +570,15 @@ I am interested in the relationship between fuel efficiency (``kpmg``) and horse
 #| label: fig-summary-stats
 #| fig-cap: "**Summary statistics of car characteristics**"
 
-sum_stats <- tbl_summary(mtcars.final, by = transmission_manual,
-                         include = c("kmpg", "hp", "wt", "cyl", "carb", "transmission_manual"),
+sum_stats <- tbl_summary(mtcars.final, by = transmission_manual, #select variable by which observations will be grouped prior to computation
+                         include = c("kmpg", "hp", "wt", "cyl", "carb", "transmission_manual"), #select variables for which summary statistics will be calculated
                          statistic = list(all_continuous() ~ "{mean} ({sd})",
-                                          all_categorical() ~ "{n} ({p}%)"),
-                         label = list(kmpg ~ "Kilometres per gallon", hp ~ "Horsepower", wt ~ "Weight", cyl ~ "Cylinders", carb ~ "Carburetors")
+                                          all_categorical() ~ "{n} ({p}%)"), #specify type of statistics to compute
+                         label = list(kmpg ~ "Kilometres per gallon", hp ~ "Horsepower", wt ~ "Weight", cyl ~ "Cylinders", carb ~ "Carburetors") #rename the variables
                          ) %>%
-  add_overall(last = TRUE) %>%
-  modify_header(label ~ "**Characteristics**") %>%
-  modify_spanning_header(c("stat_1", "stat_2") ~ "**Manual transmission**")
+  add_overall(last = TRUE) %>% #also compute for all (ungrouped) data
+  modify_header(label ~ "**Characteristics**") %>% #rename the header of the variable column
+  modify_spanning_header(c("stat_1", "stat_2") ~ "**Manual transmission**") #add header for the grouped by variable
 
 sum_stats
 
@@ -594,6 +593,8 @@ To delve deeper into the distributions of fuel efficiency and horsepower, I plot
 
 ```{r}
 #| label: Default-plot-themes
+
+#Set default theme for ggplot; serif is times new roman
 
 def_theme <- theme(plot.title = element_text(family = "serif", size = 15, hjust = 0.5),
                   axis.title = element_text(family = "serif", size = 13),
@@ -610,10 +611,10 @@ def_theme <- theme(plot.title = element_text(family = "serif", size = 15, hjust 
 
 # Density plot of km per gallon
 
-kmpg_density <- ggplot(data = mtcars.final, aes(x = kmpg)) + 
-  geom_density(color = "green", size = 1) + 
-  labs(x = "Km per gallon", y = "Density") +
-  def_theme
+kmpg_density <- ggplot(data = mtcars.final, aes(x = kmpg)) + #input dataset to be used, the variables for the x and y axis and associated aesthetics
+  geom_density(color = "green", size = 1) + # specify the type of plot and aesthetic features for this plot type not associated with the axis variables 
+  labs(x = "Km per gallon", y = "Density") + # customise the plot title, axis labels and values, legend title and text etc
+  def_theme #customise the theme, which includes font type, size, colour, background colour for the different plot components
 
 kmpg_density
 
@@ -659,7 +660,7 @@ hp_kmpg_scatter
 
 hp_kmpg_bywt_scatter <- ggplot(data = mtcars.final, aes(x = hp, y = kmpg)) +
   geom_point(aes(color = wt_category)) + 
-  facet_wrap(. ~ wt_category) +
+  facet_wrap(. ~ wt_category) + #this segments the plots columnwise by the specified variable
   labs(x = "Horsepower", y = "Km per gallon", color = "Weight category") +
   def_theme
 
@@ -680,9 +681,9 @@ Finally, I want to see how fuel efficiency and horsepower varies with the number
 
 kmpg__bycylcarb_hist <- ggplot(data = mtcars.final, aes(x = kmpg)) +
   geom_histogram(binwidth = 1, aes(fill = factor(interaction(cyl, carb)))) +
-  facet_grid(carb ~ cyl, labeller = label_both) +
+  facet_grid(carb ~ cyl, labeller = label_both) + #this segments rowwise by carb and columnwise by cyl
   labs(x = "Km per gallon", y = "Number of cars", fill = "Number of cylinders and carburetors") +
-  guides(fill = "none") +
+  guides(fill = "none") + #this removes the legend for the fill colours
   def_theme
 
 kmpg__bycylcarb_hist
