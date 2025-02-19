@@ -474,8 +474,8 @@ However, I think this was a very beneficial learning experience as the ability t
 -   Points toward unique objectives (up to 20): 20
 -   Additional points (up to 20): 10 
 -   TA provisional engagement points (up to 10): 8
--   Final approved engagement points (up to 10):
--   Total points (up to 50):
+-   Final approved engagement points (up to 10): 8
+-   Total points (up to 50): 38
 
 Engagement points are awarded for going above and beyond the expectations of the project and are not guaranteed on any given submission. Demonstrating the assessed learning objectives earns you points in those categories, but engagement points are awarded for exceptional effort, creativity, or skill.
 
@@ -484,4 +484,4 @@ TAs may recommend engagement points provisionally, but the instructor will make 
 Additional comments: 
 
 By Mian: Good job! Your dedication to understanding and applying R's functionalities shines through, especially in your handling of ggplots and table formatting. Keep up the fantastic work.
-
+ND: This is great, Aspen! You really went above and beyond here. I'm really impressed you were able to tackle so much in a single project, and do a great job of it at that! Nice work. :)
