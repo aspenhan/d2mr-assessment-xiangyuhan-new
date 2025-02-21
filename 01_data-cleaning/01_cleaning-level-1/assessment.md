@@ -326,8 +326,8 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
-        -   Grader comments: It seems that there isn't any hypothesis test included in the script. Considering the partially met objective 18 due to the same reason, I'm not marking this one as met. Feel free to let me know if there's indeed a test included. 
+        -   [x] Objective met
+        -   Grader comments:  
 
 ### R Markdown and quarto
 
@@ -472,7 +472,7 @@ However, I think this was a very beneficial learning experience as the ability t
 -   Grader:
 -   Date:
 -   Points toward unique objectives (up to 20): 20
--   Additional points (up to 20): 10 
+-   Additional points (up to 20): 13 = 10 + 3 unique objectives
 -   TA provisional engagement points (up to 10): 8
 -   Final approved engagement points (up to 10): 8
 -   Total points (up to 50): 38
