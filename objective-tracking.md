@@ -50,7 +50,7 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 22. [x] Create and effectively use code chunks following best practices
 23. [x] Use code chunks to set up a quarto document
 24. [x] Render publication-quality tables, figures, and images from code chunks
-25. [ ] Execute descriptive analyses and/or hypothesis testing in code chunks
+25. [x] Execute descriptive analyses and/or hypothesis testing in code chunks
 
 ## R Markdown and Quarto
 
