@@ -19,22 +19,22 @@ Section: 1
 
 Mini-project title: git-github | Skeleton repo
 
-Submission date: 
+Submission date: 21/02/2025
 
-Project GitHub subdirectory URL:
+Project GitHub subdirectory URL: https://github.com/aspenhan/d2mr-assessment-xiangyuhan-new/tree/9a93922517faba7d09dc8edad8ad5162ccb41a83/07_git-github/01_skeleton-repo
 
-URL or instructions to access additional materials, if needed:
+URL or instructions to access additional materials, if needed: https://github.com/aspenhan/reference-dependent-preferences-and-labour-market-frictions.git
 
 
 ## Additional information
 
 1. Did you complete the project with direct collaborators or general support? If so, who did you collaborate with and what was/were their contribution(s)?
-    1. Direct collaborators (students who will be turning in a version of the same project) and their contributions:
-    2. General support (students who helped you with debugging, conceptual understanding, or the like) and their contributions:
+    1. Direct collaborators (students who will be turning in a version of the same project) and their contributions: No
+    2. General support (students who helped you with debugging, conceptual understanding, or the like) and their contributions: No
 2. Did you use LLMs or other AI models to generate text or code for this project? If so, which tools did you use and how did you use them? Remember in this class you *are* allowed (even encouraged) to use these tools for help with coding, but not for writing text. This can be very brief, just one or two sentences is fine unless you have more you'd like to add.
-    1. answer here 
+    1. Yes I used chatgpt for debugging code.
 3. For off-the-menu projects only, did you complete the project as proposed? If not, what changed?
-    1. answer here or n/a
+    1. n/a
 
 ## Assessed Objectives
 
@@ -52,8 +52,8 @@ Below each learning objective is a list of general expectations for meeting that
     2.  Uses relative paths correctly
     3.  Does not have duplicate/redundant elements
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments: 
 
@@ -62,8 +62,8 @@ Below each learning objective is a list of general expectations for meeting that
     1.  Includes description of repo purpose, data use, research questions, etc.
     2.  Outlines the repo structure with file tree or similar
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -72,8 +72,8 @@ Below each learning objective is a list of general expectations for meeting that
     1.  All scripts run and all notebooks render if the repo is cloned to another location
     2.  .gitingore comprehensively excludes unnecessary, private, and very large files and is commented appropriately
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -82,8 +82,8 @@ Below each learning objective is a list of general expectations for meeting that
     1.  Used frequent, informative commit messages
     2.  Relies on document revisions rather than manually created new versions
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -94,8 +94,8 @@ Below each learning objective is a list of general expectations for meeting that
     1. No errors occur when running scripts in a new environment and/or comments sufficiently explain package installation requirements
     2. Uses more than one function to install/load/require packages
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -137,7 +137,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Reads in data from at least one source in code chunk or sourced script
     2. Writes out intermediate and/or final datasets in code chunks or sourced scripts
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt   *Used read_excel but it is part of tidyverse
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -148,7 +148,7 @@ Below each learning objective is a list of general expectations for meeting that
     2. Uses at least 1 `tidyr` function in a data transformation pipeline
     3. Combines `dplyr` and `tidyr` functions in a data transformation pipeline
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -180,7 +180,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Creates at least 2 figures with different `geom_*` layers (e.g., a scatter plot and a bar plot)
     2. At least one plot is multi-variable
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -189,7 +189,7 @@ Below each learning objective is a list of general expectations for meeting that
 
     1. Uses at least 2 unique data-mapped `aes()` arguments (e.g., color, shape, size) to group data in a plot in one or multiple plots
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -199,7 +199,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Uses facets in at least 2 ways (e.g., using both `facet_wrap()` and `facet_grid()`), modifying the number of rows and columns, using free vs fixed scales, etc.)
     2. Combines facets with other dynamic grouping aesthetics
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -211,7 +211,7 @@ Below each learning objective is a list of general expectations for meeting that
     3. Variables display in plain English (e.g., "Age (years)" not "child_age_yrs"
     4. Uses at least 1 static aesthetic (e.g., color, shape, size) that improves visual clarity without mapping to data
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -260,8 +260,8 @@ Below each learning objective is a list of general expectations for meeting that
     2. Uses at least 2 citation forms (e.g., (Author, Year), Author (Year), etc.)
     3. May use `cite_r()` to cite R and R packages
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -273,8 +273,8 @@ Below each learning objective is a list of general expectations for meeting that
     4. May include R and R package citations with `cite_r()`
     5. May include references not cited in-text
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -287,8 +287,8 @@ Below each learning objective is a list of general expectations for meeting that
     3.  Follows the "1-chunk-1-thing" rule
     4.  Chunks are distributed throughout the manuscript, sensibly placed near the text they support
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments: 
         
@@ -299,8 +299,8 @@ Below each learning objective is a list of general expectations for meeting that
     3. Sets preferences/options in at least 1 code chunk
     4. Organizes setup chunks sensibly
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -312,7 +312,7 @@ Below each learning objective is a list of general expectations for meeting that
     4. All tables and figures are referenced in the narrative text (e.g., Figure 1)
     5. References render without error and link to the correct table/figure in pdf/html output
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -336,8 +336,8 @@ Below each learning objective is a list of general expectations for meeting that
     
     1. Includes all necessary metadata, output options, and formatting options necessary to render an APA styled document (or other specified style if appropriate for the project)
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -348,8 +348,8 @@ Below each learning objective is a list of general expectations for meeting that
     3. Includes at least 1 list
     4. Includes at least 1 footnote
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -380,8 +380,8 @@ Below each learning objective is a list of general expectations for meeting that
     3. PDF renders without error and includes all text, tables, and figures
     4. No additional steps are needed (e.g., finding data, determining necessary packages to install and load, running unsourced scripts)
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -445,11 +445,9 @@ Optionally, you may provide a brief reflection on your experience with this proj
 
 Thoughtful reflections may earn engagement points.
 
+One main difficulty I encountered in completing this project was in renaming the github repository and the local directory as the two become disconnected, which happened because I decided to change the "research idea" while working on the project. However, I was able to remedy issue through online help. Essentially, I needed to change the version control origin url for the local project, then use terminal commands to enable tracking between the local and remote branch, merge them, and finally set the remote as upstream.
 
-<!-- Reflection below this line -->
-
-Encountered difficulties when renaming the github repository and the project as the two become disconnected, but able to remedy issue through online help
-: needed to change the version control origin url, then needed to use terminal commands to enable tracking information between the local and remote branch, merge the them and set the remote as upstream
+Another challenge was in formatting the figures. I realised the conventional command for specifying figure positions do not work by themselves in apaquarto and I needed to set floatsintext to true so that figures would not appear at the end of the document. Beyond that, I had to tweak the fig-pos settings (put them in yaml vs in chunk and shift around some text) to get the desired layout, but it was good practice.
 
 <!-- Do not edit below this line. -->
 
