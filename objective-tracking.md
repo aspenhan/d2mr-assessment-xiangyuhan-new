@@ -8,10 +8,10 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 
 ## GitHub and R Studio
 
-1.  [ ] Create and maintain a repo with sensible organization and naming conventions
-2.  [ ] Maintain an informative and up-to-date README.md
-3.  [ ] Integrate a GitHub repo with an R studio project, including .gitignore file
-4.  [ ] Effectively use version control
+1.  [x] Create and maintain a repo with sensible organization and naming conventions
+2.  [x] Maintain an informative and up-to-date README.md
+3.  [x] Integrate a GitHub repo with an R studio project, including .gitignore file
+4.  [x] Effectively use version control
 
 ## R programming
 
@@ -42,8 +42,8 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 
 ## BibTeX
 
-20. [ ] Render APA7 in-text citations with BibTeX syntax for multiple citation forms
-21. [ ] Render an APA7 references page from a .bib file
+20. [x] Render APA7 in-text citations with BibTeX syntax for multiple citation forms
+21. [x] Render an APA7 references page from a .bib file
 
 ## Notebooks and code chunks
 
@@ -58,4 +58,4 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 27. [x] Use quarto R Markdown to compose an academic manuscript
 28. [x] Use inline R variables to replace static text
 29. [x] Run inline R functions to render dynamic data-dependent text
-30. [ ] Use `knitr` and quarto to produce an APA7 formatted 1-click PDF manuscript
+30. [x] Use `knitr` and quarto to produce an APA7 formatted 1-click PDF manuscript
