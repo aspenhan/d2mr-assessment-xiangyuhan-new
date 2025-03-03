@@ -52,19 +52,19 @@ Below each learning objective is a list of general expectations for meeting that
     2.  Uses relative paths correctly
     3.  Does not have duplicate/redundant elements
 
-        -   [x] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [ ] Objective met
-        -   Grader comments: 
+        -   [ ] Objective attempt
+        -   [x] Unique objective attempt
+        -   [x] Objective met
+        -   Grader comments: These objects are met for the first time so I marked your unique objective attempt instead. You can check out the tracking file [here](https://github.com/aspenhan/d2mr-assessment-xiangyuhan-new/blob/main/objective-tracking.md) 
 
 2.  Maintain an informative and up-to-date README.md
 
     1.  Includes description of repo purpose, data use, research questions, etc.
     2.  Outlines the repo structure with file tree or similar
 
-        -   [x] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [ ] Objective attempt
+        -   [x] Unique objective attempt
+        -   [x] Objective met
         -   Grader comments:
 
 3.  Integrate a GitHub repo with an R studio project, including .gitignore file
@@ -72,9 +72,9 @@ Below each learning objective is a list of general expectations for meeting that
     1.  All scripts run and all notebooks render if the repo is cloned to another location
     2.  .gitingore comprehensively excludes unnecessary, private, and very large files and is commented appropriately
 
-        -   [x] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [ ] Objective attempt
+        -   [x] Unique objective attempt
+        -   [x] Objective met
         -   Grader comments:
 
 4.  Effectively use version control
@@ -82,9 +82,9 @@ Below each learning objective is a list of general expectations for meeting that
     1.  Used frequent, informative commit messages
     2.  Relies on document revisions rather than manually created new versions
 
-        -   [x] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [ ] Objective attempt
+        -   [x] Unique objective attempt
+        -   [x] Objective met
         -   Grader comments:
 
 ### R programming
@@ -96,7 +96,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 6.  Use arithmetic, comparison, and logical operators
@@ -139,7 +139,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt   *Used read_excel but it is part of tidyverse
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 10. Use `dplyr` and `tidyr` functions to transform data
@@ -150,7 +150,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 11. Use `stringr` functions to work with string variables
@@ -182,7 +182,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 14. Use dynamic aesthetics to group data
@@ -191,7 +191,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 15. Use facets to create parallel plots
@@ -201,7 +201,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 16. Create publication-quality plots using `theme` and `labs` layers
@@ -213,7 +213,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 ### Data analysis
@@ -260,9 +260,9 @@ Below each learning objective is a list of general expectations for meeting that
     2. Uses at least 2 citation forms (e.g., (Author, Year), Author (Year), etc.)
     3. May use `cite_r()` to cite R and R packages
 
-        -   [x] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [ ] Objective attempt
+        -   [x] Unique objective attempt
+        -   [x] Objective met
         -   Grader comments:
 
 21. Render an APA7 references page from a .bib file
@@ -273,9 +273,9 @@ Below each learning objective is a list of general expectations for meeting that
     4. May include R and R package citations with `cite_r()`
     5. May include references not cited in-text
 
-        -   [x] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [ ] Objective attempt
+        -   [x] Unique objective attempt
+        -   [x] Objective met
         -   Grader comments:
 
 ### Notebooks and code chunks
@@ -289,7 +289,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments: 
         
 23. Use code chunks to set up a quarto document
@@ -301,7 +301,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 24. Render publication-quality tables, figures, and images from code chunks
@@ -314,7 +314,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 25. Execute descriptive analyses and/or hypothesis testing in code chunks
@@ -338,7 +338,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 27. Use quarto R Markdown to compose an academic manuscript
@@ -350,7 +350,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 28. Use inline R variables to replace static text
@@ -380,9 +380,9 @@ Below each learning objective is a list of general expectations for meeting that
     3. PDF renders without error and includes all text, tables, and figures
     4. No additional steps are needed (e.g., finding data, determining necessary packages to install and load, running unsourced scripts)
 
-        -   [x] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [ ] Objective attempt
+        -   [x] Unique objective attempt
+        -   [x] Objective met
         -   Grader comments:
 
 ## Unassessed Objectives & Off-the-Syllabus Skills
@@ -453,11 +453,11 @@ Another challenge was in formatting the figures. I realised the conventional com
 
 ## Grader feedback
 
--   Grader:
--   Date:
--   Points toward unique objectives (up to 20):
--   Additional points (up to 20):
--   TA provisional engagement points (up to 10):
+-   Grader: Mian
+-   Date: March 2nd, 2025
+-   Points toward unique objectives (up to 20): 7
+-   Additional points (up to 20): 12
+-   TA provisional engagement points (up to 10): 7
 -   Final approved engagement points (up to 10):
 -   Total points (up to 50):
 
