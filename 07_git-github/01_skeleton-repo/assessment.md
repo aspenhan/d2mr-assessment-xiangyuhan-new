@@ -458,8 +458,8 @@ Another challenge was in formatting the figures. I realised the conventional com
 -   Points toward unique objectives (up to 20): 7
 -   Additional points (up to 20): 12
 -   TA provisional engagement points (up to 10): 7
--   Final approved engagement points (up to 10):
--   Total points (up to 50):
+-   Final approved engagement points (up to 10): 2 (maxed out!)
+-   Total points (up to 50): 12 -- certainly worth more than that, but you're maxed out in all categories!
 
 Engagement points are awarded for going above and beyond the expectations of the project and are not guaranteed on any given submission. Demonstrating the assessed learning objectives earns you points in those categories, but engagement points are awarded for exceptional effort, creativity, or skill.
 
